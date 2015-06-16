@@ -3,10 +3,10 @@
 <head>
     <title>Portfolio Alignment</title>
     <!--  (c) 2015 Rally Software Development Corp.  All Rights Reserved. -->
-    <!--  Build Date: Fri May 22 2015 14:20:39 GMT-0700 (PDT) -->
+    <!--  Build Date: Thu Jun 11 2015 12:07:53 GMT-0600 (MDT) -->
     
     <script type="text/javascript">
-        var APP_BUILD_DATE = "Fri May 22 2015 14:20:39 GMT-0700 (PDT)";
+        var APP_BUILD_DATE = "Thu Jun 11 2015 12:07:53 GMT-0600 (MDT)";
         var CHECKSUM = [%= checksum %];
     </script>
     

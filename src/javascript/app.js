@@ -196,7 +196,7 @@ Ext.define("PortfolioAlignment", {
             chartConfig: config
         });
 
-        ct.setHeight(300);
+        ct.setHeight(350);
     },
     _addLegend: function(){
 
@@ -456,7 +456,7 @@ Ext.define("PortfolioAlignment", {
             plotOptions: {
                 pie: {
                     size: '75%',
-                    center: ['50%','40%'],
+                    center: ['50%','50%'],
                     allowPointSelect: true,
                         dataLabels: {
                             enabled: this.chartSettings.showDataLabels,
