@@ -2,6 +2,7 @@
     "name": "Portfolio Alignment",
     "className": "PortfolioAlignment",
     "server": "https://rally1.rallydev.com",
-    "sdk": "2.0",
-    "apiKey": "_PUT_APIKEY_HERE_"
+    "sdk": "2.1",
+    "apiKey": "_PUT_APIKEY_HERE_",
+    "story": "US1716"
 }

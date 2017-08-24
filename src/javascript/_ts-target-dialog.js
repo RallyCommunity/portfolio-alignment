@@ -41,23 +41,42 @@ Ext.define('Rally.technicalservices.dialog.TargetAllocation', {
         this.callParent(arguments);
 
         this.addEvents('allocationsupdate');
-
+        var ignore_regex = new RegExp("^__changed");
         _.each(this.targetAllocation, function(val,key){
-            this.down('#dialog-body').add({
-                xtype: 'rallynumberfield',
-                fieldLabel: key,
-                labelAlign: 'right',
-                labelWidth: 150,
-                value: val || 0,
-                minValue: 0,
-                maxValue: 100,
-                listeners: {
-                    scope: this,
-                    change: this._validate
-                }
-            });
+            if (!ignore_regex.test(key)){
+                this.down('#dialog-body').add({
+                    xtype: 'rallynumberfield',
+                    fieldLabel: key,
+                    labelAlign: 'right',
+                    labelWidth: 150,
+                    value: val || 0,
+                    minValue: 0,
+                    maxValue: 100,
+                    listeners: {
+                        scope: this,
+                        change: this._validate
+                    }
+                });
+            }
         }, this);
 
+        var html = 'Settings change log not available.';
+        if (this.targetAllocation['__changedBy'] && this.targetAllocation['__changedBy'].length > 0 &&
+            this.targetAllocation['__changedOn'] && this.targetAllocation['__changedOn'].length > 0){
+            html = Ext.String.format('<br/><br/>Preferences for {2} changed by {0} on {1}', this.targetAllocation['__changedBy'], this.targetAllocation['__changedOn'] || '<None>', this.releaseName);
+        }
+
+        this.title = 'Target Allocations for Workspace'
+        if (this.persistAllocationsByProject === true || this.persistAllocationsByProject == "true"){
+            this.title = 'Target Allocations for Project';
+        }
+        this.down('#dialog-body').add({
+            xtype: 'container',
+            html: html,
+            style: {
+                color: '#c0c0c0'
+            }
+        });
         this._validate();
         this.down('#saveButton').on('click', this._onSave, this);
         this.down('#cancelButton').on('click', this._onCancel, this);
@@ -68,6 +87,8 @@ Ext.define('Rally.technicalservices.dialog.TargetAllocation', {
         _.each(cmps, function(cmp){
             allocations[cmp.fieldLabel] = cmp.getValue();
         });
+        allocations.__changedBy = Rally.getApp().getContext().getUser().UserName;
+        allocations.__changedOn = new Date();
         return allocations;
     },
     _validate: function(){
